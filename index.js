@@ -8,11 +8,6 @@ const { MongoClient, ServerApiVersion } = require('mongodb');
 // middleware
 app.use(cors())
 app.use(express.json())
-
-// password= DOjDtry09FWlCKq6
-// user= fruitsUser
-
-
 const uri = `mongodb+srv://${process.env.Fruits_User}:${process.env.Fruits_pass}@cluster0.0ergu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
 
@@ -33,9 +28,6 @@ async function run (){
     }
 }
 run().catch(console.dir)
-// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-// client.connect(err => {
-//   const collection = client.db("test").collection("devices");
   console.log('db connected')
   // perform actions on the collection object
 //   client.close();
