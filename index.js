@@ -15,12 +15,31 @@ app.use(express.json())
 
 const uri = `mongodb+srv://${process.env.Fruits_User}:${process.env.Fruits_pass}@cluster0.0ergu.mongodb.net/myFirstDatabase?retryWrites=true&w=majority`;
 const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
-client.connect(err => {
-  const collection = client.db("test").collection("devices");
+
+async function run (){
+    try{
+        await client.connect();
+        const fruitCollection= client.db('FoodFruits').collection('Items')
+        app.get('/item', async (req,res) => {
+        const query={}
+        const cursor= fruitCollection.find(query)
+        const fruitItem= await cursor.toArray()
+        res.send(fruitItem)
+    
+        })
+    }
+    finally{
+
+    }
+}
+run().catch(console.dir)
+// const client = new MongoClient(uri, { useNewUrlParser: true, useUnifiedTopology: true, serverApi: ServerApiVersion.v1 });
+// client.connect(err => {
+//   const collection = client.db("test").collection("devices");
   console.log('db connected')
   // perform actions on the collection object
-  client.close();
-});
+//   client.close();
+// });
 
 
 app.get('/',(req,res)=>{
