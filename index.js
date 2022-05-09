@@ -15,6 +15,7 @@ async function run (){
     try{
         await client.connect();
         const fruitCollection= client.db('FoodFruits').collection('Items')
+        const itemCollection=client.db('Order').collection('AddItems')
         
         app.get('/item', async (req,res) => {
         const query={}
@@ -29,6 +30,19 @@ async function run (){
             const fruitItem =await fruitCollection.findOne(query)
             res.send(fruitItem)
 
+        })
+        // POST
+        app.post('/item', async (req,res)=>{
+            const newitem=req.body
+            const itemresult= await fruitCollection.insertOne(newitem)
+            res.send(itemresult)
+        })
+
+        // order API
+        app.post('/OrderItems',async (req,res)=>{
+            const orderitem= req.body
+            const orderresult= await itemCollection.insertOne(orderitem)
+            res.send(orderresult)
         })
     }
     finally{
