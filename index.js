@@ -45,7 +45,8 @@ async function run (){
     
         })
 
-        // Delete API
+        // Delete item API
+        
 
         app.delete('/item/:id',async(req,res)=>{
             const id= req.params.id 
